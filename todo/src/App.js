@@ -15,10 +15,20 @@ import React from "react";
                <div>
                    <input
                    type="text"
-                   className="typtext"
+                   className="input-box"
                    onChange={(e)=>{
                         this.setState=({currInput:e.currentTarget.value  });
                    }}
+
+                   onKeyDown={(e)=>{
+                       if(e.key=="Enter"){
+                           this.setState({
+                               Tasks:[...this.state.currInput,this.state.currInput],
+                               currInput="",
+                           });
+                       }
+                   }}
+
                    value={this.this.state.currInput}
                    />
                     <ul>
