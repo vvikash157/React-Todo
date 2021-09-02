@@ -1,5 +1,7 @@
 
 import React from "react";
+import List from "./List";
+import Input from "./Input"
 
     class App extends React.Component{
 
@@ -7,37 +9,39 @@ import React from "react";
          Tasks:["make Coffee","house cleaning","drink water 10 times","sleep at 10 pm","good use of free time"],
          currInput : "",
         }
+         deleteTasks=(singletask)=>{
+             let currTasksArr=this.state.Tasks;
+             let filteredArr=currTasksArr.filter((element)=>{
+                 return element !==singletask;
+             });
+             this.setState({Tasks:filteredArr});
+         }; 
+         handleCurrInput=(value)=>{
+             this.setState({currInput:value});
+         };
+         handleTasks=()=>{
+              this.setState
+              ({
+                Tasks:[...this.state.Tasks,this.state.currInput],
+                currInput:"",
+              });
+         }
 
         render=()=>{
 
             return (
                
                <div>
-                   <input
-                   type="text"
-                   className="input-box"
-                   onChange={(e)=>{
-                        this.setState=({currInput:e.currentTarget.value  });
-                   }}
-
-                   onKeyDown={(e)=>{
-                       if(e.key==="Enter"){
-                           this.setState({
-                               Tasks:[...this.state.currInput,this.state.currInput],
-                               currInput:"",
-                           });
-                       }
-                   }}
-
-                   value={this.state.currInput}
-                   />
-                    <ul>
-                        {this.state.Tasks.map((el)=>{
-
-                            return <li> {el}     <button>Delete</button>    </li>
-                        })}
-                    </ul>
-                </div>
+                   <Input
+                    handleCurrInput={this.handleCurrInput}
+                     handleTasks={this.handleTasks}
+                     currInput={this.currInput}
+                     />
+                   <List
+                    Tasks={this.state.Tasks}
+                    deleteTasks={this.deleteTasks}
+                    />
+                 </div>
             );
 
         };
